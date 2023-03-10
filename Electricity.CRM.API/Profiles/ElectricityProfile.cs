@@ -9,6 +9,7 @@ namespace Electricity.CRM.API.Profiles
         public ElectricityProfile()
         {
             CreateMap<User,UserDto>().ReverseMap();
+            CreateMap<User, ForgotPasswordUserDto>().ReverseMap();
         }
     }
 }

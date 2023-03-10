@@ -60,8 +60,9 @@ namespace Electricity.CRM.API
             });
             services.AddSingleton<IManageJWTRepository, ManageJWTRepository>();
             services.AddScoped<IUserServiceRepository, UserServiceRepository>();
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
             services.AddControllers();
-            services.AddCors(options => options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
+            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
@@ -79,9 +80,9 @@ namespace Electricity.CRM.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Electricity.CRM.API v1"));
             }
-
-            app.UseRouting();
             app.UseCors();
+            app.UseRouting();
+            
             app.UseAuthentication(); // follow Sequnce
             app.UseAuthorization();
 

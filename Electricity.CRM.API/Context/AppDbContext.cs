@@ -15,5 +15,6 @@ namespace Electricity.CRM.API.Context
         }
         public virtual DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ForgotPassword> ForgotPasswords { get; set; }
     }
 }

@@ -3,9 +3,13 @@ using Electricity.CRM.API.Dtos;
 using Electricity.CRM.API.Entity;
 using Electricity.CRM.API.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace Electricity.CRM.API.Controllers
@@ -60,6 +64,47 @@ namespace Electricity.CRM.API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route("reset-password")]
+        public IActionResult ResetPasswordAsync(ResetPasswordDto resetPassword)
+        {
+            _userServiceRepository.UpdateUserPassword(resetPassword.UserName,resetPassword.Token, resetPassword.Password);
+            _userServiceRepository.SaveCommit();
+            return Ok();
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("forgot-password/{userName}")]
+        public async Task<IActionResult> ForgotPasswordAsync(string userName)
+        {
+            var user = await _userServiceRepository.GetUserByUserName(userName);
+            if (user == null)
+            {
+                throw new System.Exception("Invalid user!");
+            }
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                throw new System.Exception("email not found for user!");
+            }
+            var key = GetForgotToken();
+            key = key.Replace("=", "");
+            key = key.Replace("/", "");
+            key = key.Replace("\"", "");
+            string html = "<html><body><h1>Electricity CRM: Forgot Password</h1><a href=\"http://localhost:4200/forgot-password/" + user.UserName + "/" + key + "\">Please click On link to reset</a></body></html>";
+            _userServiceRepository.UpdateUserToken(user.UserName, key);
+            _userServiceRepository.SaveCommit();
+            EmailService.Email(html, "Forgot-password", user.Email);
+            return Ok(html);
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("valid-user/{userName}/{token}")]
+        public async Task<IActionResult> ValidUser(string userName, string token)
+        {
+            var isValid = await _userServiceRepository.IsValidUserForReset(userName, token);
+            return Ok(isValid);
+        }
+        [AllowAnonymous]
+        [HttpPost]
         [Route("refresh")]
         public IActionResult Refresh(Tokens token)
         {
@@ -69,7 +114,7 @@ namespace Electricity.CRM.API.Controllers
             //retrieve the saved refresh token from database
             var savedRefreshToken = _userServiceRepository.GetSavedRefreshTokens(username, token.Refresh_Token);
 
-            if ((savedRefreshToken==null) || (savedRefreshToken.RefreshToken != token.Refresh_Token))
+            if ((savedRefreshToken == null) || (savedRefreshToken.RefreshToken != token.Refresh_Token))
             {
                 return Unauthorized("Invalid attempt!");
             }
@@ -89,10 +134,16 @@ namespace Electricity.CRM.API.Controllers
             };
 
             _userServiceRepository.DeleteUserRefreshTokens(username, token.Refresh_Token);
+            _userServiceRepository.DeleteAllUserTokens(username);
             _userServiceRepository.AddUserRefreshTokens(obj);
             _userServiceRepository.SaveCommit();
 
             return Ok(newJwtToken);
+        }
+
+        private string GetForgotToken()
+        {
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
         }
     }
 }

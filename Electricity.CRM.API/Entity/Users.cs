@@ -16,5 +16,9 @@ namespace Electricity.CRM.API.Entity
         [MaxLength(100)]
         public string Password { get; set; }
 
+        [Required]
+        [MaxLength(200)]
+        public string Email { get; set; }
+        public string? ForgotPasswordToken { get; set; }
     }
 }
