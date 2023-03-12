@@ -1,5 +1,6 @@
 using Electricity.CRM.API.Context;
 using Electricity.CRM.API.Repository;
+using Electricity.CRM.API.UnityOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -60,6 +61,7 @@ namespace Electricity.CRM.API
             });
             services.AddSingleton<IManageJWTRepository, ManageJWTRepository>();
             services.AddScoped<IUserServiceRepository, UserServiceRepository>();
+            services.AddScoped<IUnityOfWork, UnityOfWorker>();
             services.AddCors(options => options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
             services.AddControllers();
             
