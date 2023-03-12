@@ -21,6 +21,7 @@ namespace Electricity.CRM.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseWebRoot("wwwroot"); // Must be there to create root for excel
                 });
     }
 }

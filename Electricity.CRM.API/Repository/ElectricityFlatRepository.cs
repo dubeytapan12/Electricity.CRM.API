@@ -58,5 +58,10 @@ namespace Electricity.CRM.API.Repository
             _context.Entry(_mapper.Map<ElectricityUserFlat>(electricityUser)).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+        public async Task PostMultipleElectricityUser(List<ElectricityUserDtos> electricityUses)
+        {
+            _context.ElectricityUserFlat.AddRange(_mapper.Map<List<ElectricityUserFlat>>(electricityUses));
+            await _context.SaveChangesAsync();
+        }
     }
 }

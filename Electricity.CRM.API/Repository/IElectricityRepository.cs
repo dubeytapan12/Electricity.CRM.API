@@ -14,5 +14,6 @@ namespace Electricity.CRM.API.Repository
         Task<ElectricityUserDtos> PostElectricityUser(ElectricityUserDtos electricityUserCommercial);
         Task DeleteElectricityUser(int id);
         bool ElectricityUserExists(int id);
+        Task PostMultipleElectricityUser(List<ElectricityUserDtos> electricityUses);
     }
 }
