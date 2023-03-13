@@ -17,6 +17,7 @@ namespace Electricity.CRM.API.Context
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ForgotPassword> ForgotPasswords { get; set; }
 
+        public virtual DbSet<ElectricityBiller> ElectricityBiller { get; set; }
         //As Per requirement created 4 different table for electricity user 
         public virtual DbSet<ElectricityUserFlat> ElectricityUserFlat { get; set; }
         public virtual DbSet<ElectricityUserFactory> ElectricityUserFactory { get; set; }

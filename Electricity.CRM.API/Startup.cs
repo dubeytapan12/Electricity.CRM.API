@@ -62,6 +62,7 @@ namespace Electricity.CRM.API
             services.AddSingleton<IManageJWTRepository, ManageJWTRepository>();
             services.AddScoped<IUserServiceRepository, UserServiceRepository>();
             services.AddScoped<IUnityOfWork, UnityOfWorker>();
+            services.AddScoped<IElectricityBillerRepository,ElectricityBillerRepository>();
             services.AddCors(options => options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
             services.AddControllers();
             

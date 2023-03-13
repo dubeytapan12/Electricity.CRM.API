@@ -2,6 +2,7 @@
 using Electricity.CRM.API.Dtos;
 using Electricity.CRM.API.Factory;
 using Electricity.CRM.API.UnityOfWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Electricity.CRM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ElectricityUserController : ControllerBase
     {
         private readonly IUnityOfWork _unityOfWork;

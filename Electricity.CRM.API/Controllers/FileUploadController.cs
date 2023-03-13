@@ -15,11 +15,13 @@ using Electricity.CRM.API.UnityOfWork;
 using Electricity.CRM.API.Entity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Electricity.CRM.API.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Electricity.CRM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FileUploadController : ControllerBase
     {
         IConfiguration configuration;

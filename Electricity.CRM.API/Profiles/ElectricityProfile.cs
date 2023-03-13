@@ -14,6 +14,7 @@ namespace Electricity.CRM.API.Profiles
             CreateMap<ElectricityUserResidential, ElectricityUserDtos>().ReverseMap();
             CreateMap<ElectricityUserFactory, ElectricityUserDtos>().ReverseMap();
             CreateMap<ElectricityUserFlat, ElectricityUserDtos>().ReverseMap();
+            CreateMap<ElectricityBiller, ElectricityBillerDtos>().ReverseMap();
         }
     }
 }
