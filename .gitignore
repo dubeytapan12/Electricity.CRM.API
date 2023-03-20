@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Electricity.CRM.API/wwwroot/ReceivedReports
+/Electricity.CRM.API/wwwroot/PrjectedReports
