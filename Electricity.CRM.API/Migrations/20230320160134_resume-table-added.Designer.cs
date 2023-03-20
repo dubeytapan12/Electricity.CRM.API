@@ -4,14 +4,16 @@ using Electricity.CRM.API.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Electricity.CRM.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230320160134_resume-table-added")]
+    partial class resumetableadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -494,10 +496,15 @@ namespace Electricity.CRM.API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ResumeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Skills")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ResumeId");
 
                     b.ToTable("Resume");
                 });
@@ -693,12 +700,19 @@ namespace Electricity.CRM.API.Migrations
             modelBuilder.Entity("Electricity.CRM.API.Entity.Project", b =>
                 {
                     b.HasOne("Electricity.CRM.API.Entity.Resume", "Resume")
-                        .WithMany("projects")
+                        .WithMany()
                         .HasForeignKey("ResumeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Resume");
+                });
+
+            modelBuilder.Entity("Electricity.CRM.API.Entity.Resume", b =>
+                {
+                    b.HasOne("Electricity.CRM.API.Entity.Resume", null)
+                        .WithMany("resumes")
+                        .HasForeignKey("ResumeId");
                 });
 
             modelBuilder.Entity("Electricity.CRM.API.Entity.Skills", b =>
@@ -714,7 +728,7 @@ namespace Electricity.CRM.API.Migrations
 
             modelBuilder.Entity("Electricity.CRM.API.Entity.Resume", b =>
                 {
-                    b.Navigation("projects");
+                    b.Navigation("resumes");
                 });
 
             modelBuilder.Entity("Electricity.CRM.API.Entity.TechnologyEnablement", b =>

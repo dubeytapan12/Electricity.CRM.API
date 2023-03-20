@@ -8,5 +8,7 @@ namespace Electricity.CRM.API.UnityOfWork
         IElectricityRepository ElectricityResidentialRepository { get; }
         IElectricityRepository ElectricityFactoryRepository { get; }
         IElectricityRepository ElectricityFlatRepository { get; }
+        ITechnologyEnablementRepository TechnologyEnablementRepository { get; }
+        IResumeRepository ResumeRepository { get; }
     }
 }

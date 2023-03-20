@@ -10,4 +10,12 @@
         public int? FlatUserId { get; set; }
         public int? FactoryUserId { get; set; }
     }
+
+    public class ElectricityBillerReadDtos
+    {
+        public int Id { get; set; }
+        public string ConnectionType { get; set; }
+        public decimal Amount { get; set; }
+        public string Name { get; set; }
+    }
 }

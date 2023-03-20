@@ -4,14 +4,16 @@ using Electricity.CRM.API.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Electricity.CRM.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230319162310_added-ppt-tables2")]
+    partial class addedppttables2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -449,59 +451,6 @@ namespace Electricity.CRM.API.Migrations
                     b.ToTable("Languages");
                 });
 
-            modelBuilder.Entity("Electricity.CRM.API.Entity.Project", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClientName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EndDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StartDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResumeId");
-
-                    b.ToTable("Project");
-                });
-
-            modelBuilder.Entity("Electricity.CRM.API.Entity.Resume", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EmailId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MobileNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Skills")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Resume");
-                });
-
             modelBuilder.Entity("Electricity.CRM.API.Entity.Skills", b =>
                 {
                     b.Property<int>("Id")
@@ -690,17 +639,6 @@ namespace Electricity.CRM.API.Migrations
                     b.Navigation("TechnologyEnablement");
                 });
 
-            modelBuilder.Entity("Electricity.CRM.API.Entity.Project", b =>
-                {
-                    b.HasOne("Electricity.CRM.API.Entity.Resume", "Resume")
-                        .WithMany("projects")
-                        .HasForeignKey("ResumeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Resume");
-                });
-
             modelBuilder.Entity("Electricity.CRM.API.Entity.Skills", b =>
                 {
                     b.HasOne("Electricity.CRM.API.Entity.TechnologyEnablement", "TechnologyEnablement")
@@ -710,11 +648,6 @@ namespace Electricity.CRM.API.Migrations
                         .IsRequired();
 
                     b.Navigation("TechnologyEnablement");
-                });
-
-            modelBuilder.Entity("Electricity.CRM.API.Entity.Resume", b =>
-                {
-                    b.Navigation("projects");
                 });
 
             modelBuilder.Entity("Electricity.CRM.API.Entity.TechnologyEnablement", b =>

@@ -23,5 +23,15 @@ namespace Electricity.CRM.API.Context
         public virtual DbSet<ElectricityUserFactory> ElectricityUserFactory { get; set; }
         public virtual DbSet<ElectricityUserResidential> ElectricityUserResidential { get; set; }
         public virtual DbSet<ElectricityUserCommercial> ElectricityUserCommercial { get; set; }
+
+        public virtual DbSet<TechnologyEnablement> TechnologyEnablement { get; set; }
+        public virtual DbSet<EducationOrCertification> EducationOrCertification { get; set; }
+        public virtual DbSet<Languages> Languages { get; set; }
+        public virtual DbSet<Skills> Skills { get; set; }
+        public virtual DbSet<Experience> Experience { get; set; }
+        public virtual DbSet<Client> Client { get; set; }
+
+        public virtual DbSet<Resume> Resume { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
     }
 }

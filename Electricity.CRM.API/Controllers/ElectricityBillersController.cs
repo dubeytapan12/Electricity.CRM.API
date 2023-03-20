@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Electricity.CRM.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class ElectricityBillersController : ControllerBase
     {
@@ -32,6 +32,12 @@ namespace Electricity.CRM.API.Controllers
         public async Task<ActionResult<BillerGroupDtos>> Get()
         {
             return Ok(await _electricityBillerRepository.GetGroupingBill());
+        }
+        [HttpGet]
+        [Route("get-billers/{connectionType}")]
+        public async Task<ActionResult<BillerGroupDtos>> Get(string connectionType)
+        {
+            return Ok(await _electricityBillerRepository.GetBillers(connectionType));
         }
         // POST: api/ElectricityBillers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

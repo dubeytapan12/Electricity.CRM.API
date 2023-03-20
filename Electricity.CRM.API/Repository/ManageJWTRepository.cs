@@ -39,7 +39,7 @@ namespace Electricity.CRM.API.Repository
                   {
                  new Claim(ClaimTypes.Name, userName)
                   }),
-                    Expires = DateTime.Now.AddMinutes(1),
+                    Expires = DateTime.Now.AddMinutes(10),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -12,6 +12,8 @@ namespace Electricity.CRM.API.UnityOfWork
         private IElectricityRepository _electricityResidentialRepository;
         private IElectricityRepository _electricityFactoryRepository;
         private IElectricityRepository _electricityFlatRepository;
+        private ITechnologyEnablementRepository _technologyEnablementRepository;
+        private IResumeRepository _resumeRepository;
         private readonly IMapper _mapper;
 
         public UnityOfWorker(AppDbContext db, IMapper mapper)
@@ -19,7 +21,28 @@ namespace Electricity.CRM.API.UnityOfWork
             this._db = db;
             _mapper = mapper;
         }
-        
+        public ITechnologyEnablementRepository TechnologyEnablementRepository
+        {
+            get
+            {
+                if (_technologyEnablementRepository == null)
+                {
+                    _technologyEnablementRepository = new TechnologyEnablementRepository(_db);
+                }
+                return _technologyEnablementRepository;
+            }
+        }
+        public IResumeRepository ResumeRepository
+        {
+            get
+            {
+                if (_resumeRepository == null)
+                {
+                    _resumeRepository = new ResumeRepository(_db);
+                }
+                return _resumeRepository;
+            }
+        }
         public IElectricityRepository ElectricityCommercialRepository
         {
             get
